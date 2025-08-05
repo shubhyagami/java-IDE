@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java IDE - Online Java Compiler</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1><i class="fab fa-java"></i> Java IDE</h1>
+                <span class="subtitle">Online Java Compiler & Editor</span>
+            </div>
+            <div class="header-right">
+                <button id="saveBtn" class="btn btn-secondary">
+                    <i class="fas fa-save"></i> Save
+                </button>
+                <button id="loadBtn" class="btn btn-secondary">
+                    <i class="fas fa-folder-open"></i> Load
+                </button>
+                <button id="runBtn" class="btn btn-primary">
+                    <i class="fas fa-play"></i> Run
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Code Editor Section -->
+            <div class="editor-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-code"></i> Code Editor</h3>
+                    <div class="editor-controls">
+                        <select id="themeSelect" class="theme-select">
+                            <option value="monokai">Monokai</option>
+                            <option value="default">Default</option>
+                            <option value="dracula">Dracula</option>
+                            <option value="material">Material</option>
+                        </select>
+                        <button id="clearBtn" class="btn btn-small">
+                            <i class="fas fa-trash"></i> Clear
+                        </button>
+                    </div>
+                </div>
+                <div class="editor-container">
+                    <textarea id="codeEditor"></textarea>
+                </div>
+            </div>
+
+            <!-- Input/Output Section -->
+            <div class="io-section">
+                <!-- Input Section -->
+                <div class="input-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-keyboard"></i> Input</h3>
+                        <button id="clearInputBtn" class="btn btn-small">
+                            <i class="fas fa-trash"></i> Clear
+                        </button>
+                    </div>
+                    <textarea id="inputArea" placeholder="Enter your input here..."></textarea>
+                </div>
+
+                <!-- Output Section -->
+                <div class="output-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-terminal"></i> Output</h3>
+                        <button id="clearOutputBtn" class="btn btn-small">
+                            <i class="fas fa-trash"></i> Clear
+                        </button>
+                    </div>
+                    <div id="outputArea" class="output-area">
+                        <div class="output-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <p>Click "Run" to execute your Java code</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Management Modal -->
+        <div id="fileModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Save File</h3>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div id="saveForm" class="form-group">
+                        <label for="filename">Filename:</label>
+                        <input type="text" id="filename" placeholder="Enter filename (without .java extension)">
+                    </div>
+                    <div id="fileList" class="file-list" style="display: none;">
+                        <h4>Saved Files:</h4>
+                        <div id="filesContainer"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="modalCancelBtn" class="btn btn-secondary">Cancel</button>
+                    <button id="modalConfirmBtn" class="btn btn-primary">Confirm</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Compiling and running...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
