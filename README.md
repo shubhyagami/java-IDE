@@ -11,7 +11,7 @@
   <h1>🚀 Java IDE - Online Java Compiler</h1>
   <p><strong>A modern, web-based Java IDE similar to Programiz</strong></p>
   
-  <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
+  <div style="display: Flex; justify-content: Center; gap: 20px; margin: 20px 0;">
     <a href="#features">✨ Features</a>
     <a href="#demo">🎮 Demo</a>
     <a href="#installation">⚙️ Installation</a>
@@ -42,6 +42,56 @@
 ### ⚡ **Compilation & Execution**
 - **Real-time Java compilation** and execution
 - **I
+
+---
+
+## ⏱️ Quick Start
+
+Before you prune any timelines, ensure your local environment is properly calibrated. 
+
+**Prerequisites:**
+- [Node.js](https://nodejs.org/) (LTS version recommended)
+- Java JDK (Installed and configured in your system path)
+
+**Initialization Sequence:**
+```bash
+# Clone this timeline to your local branch
+git clone https://github.com/shubhyagami/java-IDE.git
+
+# Navigate into the TVA temporal vault
+cd java-IDE
+
+# Install the required sacred dependencies
+npm install
+
+# Boot up the TemPad (Start the local server)
+npm start
+```
+Navigate to `http://localhost:3000` in your browser to access the IDE and maintain the Sacred Timeline of code.
+
+---
+
+## 💡 Pro Tips for TVA Engineers
+
+To maximize your temporal efficiency while using the Java IDE, keep these protocols in mind:
+
+- **STDOUT Buffering:** When running infinite or heavy loops, the output stream is buffered. Use `System.out.flush()` to instantly broadcast outputs to the timeline.
+- **Keyboard Shortcuts:** Press `Ctrl + Enter` to instantly compile and run your code. This is significantly faster than reaching for your mouse with a time whip in hand.
+- **Theme Calibration:** If you're debugging deep into the night shift, switch to the **Dracula** or **Monokai** themes to reduce temporal eye strain.
+- **Safe File Handling:** Always use `Ctrl + S` before refreshing your browser page. Unsolicited page reloads will be classified as Nexus events, and your unsaved code will be.variant-pruned.
+
+---
+
+## 📅 Changelog
+
+### [v1.1.0] - 2026-07-28
+- **Temporal Maintenance:** Synchronized base dependencies to align with the latest Sacred Timeline standards.
+- **Security Tuning:** Patched minor CVE vulnerabilities flagged by the TVA's Automated Branch Oversight.
+- **Documentation:** Added `Quick Start` guide and `Pro Tips for TVA Engineers` to the `.md` protocols.
+- **Bugfix:** Resolved an issue where pressing `Tab` in the editor accidentally created a Nexus event.
+- **Enhancement:** Improved `Monokai` theme rendering for nested parentheses.
+
+*(See the TVA Temporal Archive for older branches)*
 
 ---
 
