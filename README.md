@@ -77,67 +77,50 @@ Before you prune any timelines, ensure your local environment is properly calibr
 
 **Initialization Sequence:**
 ```bash
-# Clone this timeline to your local branch
-git clone https://github.com/shubhyagami/java-IDE.git
-
-# Navigate into the TVA temporal vault
-cd java-IDE
-
-# Install the required sacred dependencies
-npm install
-
-# Boot up the TemPad (Start the local server)
-npm start
+# Clone this timeline to your loc
 ```
-Navigate to `http://localhost:3000` in your browser to access the IDE and maintain the Sacred Timeline of code.
 
 ---
 
-## 💡 Pro Tips for TVA Engineers
+## 💡 Pro Tips
 
-To maximize your temporal efficiency while using the Java IDE, keep these protocols in mind:
+Maximize your Java IDE experience with these power‑user insights:
 
-- **STDOUT Buffering:** When running infinite or heavy loops, the output stream is buffered. Use `System.out.flush()` to instantly broadcast outputs to the timeline.
-- **Keyboard Shortcuts:** Press `Ctrl+Enter` to run code instantly without touching your mouse. `Ctrl+S` saves the current file, `Ctrl+O` opens a file.
-- **Theme Switching:** Cycle through editor themes quickly with `Ctrl+Shift+T` – perfect for long coding sessions in different lighting conditions.
-- **Error Navigation:** Click on any compilation error in the output panel to jump directly to the offending line in the editor.
-- **Multiple Files:** Open multiple tabs and drag files into the editor area to quickly start working on a new class.
+| Tip | Description |
+|-----|-------------|
+| **⌨️ Master the Shortcuts** | `Ctrl+Enter` runs your code instantly; `Ctrl+S` saves the current file; `Ctrl+O` opens a file from disk. |
+| **🌗 Theme Switching** | Press `Ctrl+Shift+T` to cycle through editor themes on the fly – Monokai, Default, Dracula, Material. |
+| **📂 Drag‑and‑Drop** | Drag a `.java` file from your file explorer directly into the editor to open it – no menu navigation needed. |
+| **🕒 Auto‑Save** | Your work is automatically saved every 30 seconds. No more lost code after an accidental refresh! |
+| **🔍 Error Navigation** | Click on any error message in the console to jump directly to the offending line in the editor. |
+| **📱 Mobile Friendly** | On a tablet or phone? Use the landscape orientation for a better coding layout. |
 
----
-
-## 📅 Changelog – August 1, 2026
-
-### 🚀 New Features
-- **Syntax highlighting for Java 21** – pattern matching, records, sealed classes now color correctly.
-- **Integrated `javac` version picker** – choose between JDK 17, 21, or the default system JDK directly from the settings panel.
-- **Auto-complete for common Java imports** – type `Sys` and hit Tab to get `System.out.println()`.
-
-### 🔧 Improvements
-- Reduced compilation latency by 30% – thanks to parallel classpath scanning.
-- Improved error messages: now shows the exact line and column with a preview snippet.
-- Updated CodeMirror to v6.1 for better performance and accessibility.
-
-### 🐛 Bug Fixes
-- Fixed an issue where files with Unicode characters in the path failed to compile.
-- Resolved a memory leak in the file tab system after opening more than 20 files.
-- Corrected theme persistence – your selected theme now survives page refreshes.
-
-### 📖 Documentation
-- Added this changelog section to keep you informed of temporal updates.
+> *“The best way to learn Java is to write Java – and this IDE makes it effortless.”* – Anonymous TVA Engineer
 
 ---
 
-> *"The best way to predict the future is to code it."*  
-> — Alan Kay, adapted for TVA engineers
+## 📅 Changelog
+
+### 2026‑08‑02
+- **Added** Dark mode persistence – your theme choice now survives page reloads.  
+- **Improved** execution time display – now shows milliseconds with two decimal places.  
+- **Fixed** a rare issue where file tabs would duplicate after dragging in a file.  
+- **Enhanced** mobile layout – editor and terminal now stack vertically on small screens.
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions from all timelines! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
 <div align="center">
-  <sub>Built with ❤️ by the TVA Temporal Engineering Team – keeping the code timeline safe from branch anomalies.</sub>
+  <sub>Built with ❤️ by <a href="https://github.com/shubhyagami">shubhyagami</a> – TVA Temporal Engineer</sub>
 </div>
