@@ -17,22 +17,26 @@
 
 ---
 
+## Overview
+
+This project provides a lightweight, browser-based environment for compiling and executing Java code without requiring a local IDE setup. It features a full-featured code editor, integrated terminal, and backend execution layer powered by Node.js and the local JDK.
+
 ## Features
 
 - **Code Editor**: Syntax highlighting, line numbers, code folding, and bracket matching powered by CodeMirror.
 - **Execution**: Real-time Java compilation and execution with an integrated terminal for standard I/O.
-- **Feedback**: Inline error highlighting and execution time tracking for performance monitoring.
+- **Feedback**: Inline error highlighting with exact line numbers and execution time tracking.
 - **File Management**: Save and load `.java` files, use multiple tabs for different projects, and drag-and-drop file importing.
-- **User Experience**: Responsive layout for desktop and mobile, light/dark mode toggle, and auto-save to prevent data loss.
+- **User Experience**: Responsive layout for desktop and mobile, persistent light/dark mode toggle, and auto-save to prevent data loss.
 
 ## Getting Started
 
-Follow these steps to get a local instance up and running.
+These instructions will help you set up the IDE on your local machine for development and testing.
 
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) installed on your machine.
-- A local Java Development Kit (JDK) installed and configured for the backend to invoke the compiler.
+- A local Java Development Kit (JDK) installed and configured so the backend can invoke the compiler.
 
 ### Installation
 
@@ -54,7 +58,7 @@ Follow these steps to get a local instance up and running.
    ```
 
 4. **Open the frontend**  
-   Open `client/index.html` directly in your browser, or serve it using a static server:
+   Open `client/index.html` directly in your browser, or serve the directory using a static server:
    ```bash
    npx serve client
    ```
@@ -82,7 +86,7 @@ Follow these steps to get a local instance up and running.
 
 ## Contributing
 
-Contributions are welcome and appreciated. To contribute:
+Contributions are welcome. To contribute:
 
 1. Fork the repository.
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
