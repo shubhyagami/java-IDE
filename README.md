@@ -8,11 +8,11 @@ Java IDE is a minimal, responsive web application that provides a full‑feature
 
 ## Features  
 
-- **Rich Code Editor** – Syntax highlighting, line numbers, folding, bracket matching (CodeMirror).  
-- **Instant Compilation** – Run Java code instantly; results appear in an embedded terminal with live feedback.  
-- **File Management** – Create, edit, save, and load multiple `.java` files; drag‑and‑drop support; persistent tabs across sessions.  
-- **Responsive Design** – Optimized UI for desktop and mobile, with a theme that adapts to user preferences.  
-- **Zero‑Install Backend** – The server runs locally; no external hosting required.  
+- **Rich Code Editor** – syntax highlighting, line numbers, folding, bracket matching (CodeMirror).  
+- **Instant Compilation** – compile and run Java code instantly; results appear in an embedded terminal with live feedback.  
+- **File Management** – create, edit, save, and load multiple `.java` files; drag‑and‑drop support; persistent tabs across sessions.  
+- **Responsive Design** – optimized UI for desktop and mobile, with a light/dark theme that adapts to user preferences.  
+- **Zero‑Install Backend** – the server runs locally; no external hosting required.  
 
 ## Quick Start  
 
