@@ -1,82 +1,156 @@
-# Java IDE – Browser‑Based Development Environment  
+# Java IDE – Browser‑Based Development Environment
 
-A lightweight, web‑based IDE that lets you write, compile, and run Java code directly in the browser—no installation required.
+A lightweight web application that lets you write, compile, and run Java code directly in the browser without any additional installation.
 
-## Overview  
+---
 
-Java IDE is a minimal, responsive web application that provides a full‑featured code editor, instant compilation, and simple file management. It’s ideal for quick experiments, learning, or coding on the go when you don’t want to install a heavyweight desktop IDE.
+## Table of Contents
+- [Features](#features)
+- [Architecture](#architecture)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
+- [Changelog](#changelog)
+- [Maintainers](#maintainers)
 
-## Features  
+---
 
-- **Rich Code Editor** – syntax highlighting, line numbers, folding, bracket matching (CodeMirror).  
-- **Instant Compilation** – compile and run Java code instantly; results appear in an embedded terminal with live feedback.  
-- **File Management** – create, edit, save, and load multiple `.java` files; drag‑and‑drop support; persistent tabs across sessions.  
-- **Responsive Design** – optimized UI for desktop and mobile, with a light/dark theme that adapts to user preferences.  
-- **Zero‑Install Backend** – the server runs locally; no external hosting required.  
+## Features
 
-## Quick Start  
+- **Code editor** – CodeMirror 6 with syntax highlighting, line numbers, folding, bracket matching, and auto‑indent.
+- **Instant compile & run** – Submit code via `Ctrl+Enter` or the Run button; output appears in an embedded terminal that scrolls automatically.
+- **File management** – Create, edit, rename, delete, drag‑and‑drop files; multiple tabs stay open across sessions.
+- **Responsive UI** – Works on desktop and mobile, with light/dark theme that follows the system preference.
+- **Zero‑install backend** – The node server runs locally; no external hosting required.
 
-### Prerequisites  
-- Node.js (v18+)  
-- JDK installed and available on your `PATH`.  
+---
 
-### Setup  
-1. Clone the repository  
-   ```bash
-   git clone https://github.com/shubhyagami/java-IDE.git
-   cd java-IDE
-   ```  
+## Architecture
 
-2. Install backend dependencies  
-   ```bash
-   cd server && npm install && cd ..
-   ```  
+```
+┌─────────────┐   HTTP   ┌───────────────────────┐
+│  Browser    │<────────>│  Node.js (Express)    │
+│  (client)  │   WebSocket   │  /api/compile         │
+└─────────────┘           └───────────────────────┘
+```
 
-3. Start the backend server  
-   ```bash
-   npm start   # runs on http://localhost:3000
-   ```  
+* `client/` – Static files (HTML, CSS, JS) served by the node server.
+* `server/` – Express application that spawns `javac` and `java` processes, streams output back to the client via WebSockets.
+* All compilation happens locally; no third‑party services.
 
-4. Open the frontend  
-   - Open `client/index.html` directly in a browser, or serve the `client` folder with a static server (e.g., `npx serve client`).  
+---
 
-5. Write and run Java code  
-   - Type code in the editor.  
-   - Press **Ctrl + Enter** or click the **Run** button to compile and execute.  
+## Getting Started
 
-## Badges  
+### Prerequisites
 
-[![Build Status](https://travis-ci.org/shubhyagami/java-IDE.svg?branch=main)](https://travis-ci.org/shubhyagami/java-IDE)  
-[![Maintainability](https://api.codeclimate.com/v1/badges/4d25b6b35d77736c6a08/maintainability)](https://codeclimate.com/github/shubhyagami/java-IDE)  
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)  
-[![npm downloads](https://img.shields.io/npm/dm/java-ide?logo=npm)](https://www.npmjs.com/package/java-ide)  
+- Node.js **v18+**
+- JDK 17+ in your `PATH`
 
-## Contributing  
+### Installation
 
-1. Fork the repository.  
-2. Create a feature branch: `git checkout -b feature/YourFeature`.  
-3. Make your changes and commit: `git commit -m 'Add YourFeature'`.  
-4. Push the branch: `git push origin feature/YourFeature`.  
-5. Open a Pull Request for review.  
+```bash
+git clone https://github.com/shubhyagami/java-IDE.git
+cd java-IDE
+```
 
-## License  
+#### Backend
 
-Java IDE is released under the **MIT License** – see the `LICENSE` file for details.  
+```bash
+cd server
+npm install
+npm start     # starts at http://localhost:3000
+```
 
-## Changelog (excerpt)  
+#### Frontend
 
-- **v1.3 – 2026‑08‑28**  
-  - Added persistent file tabs and drag‑and‑drop import.  
-  - Improved mobile responsiveness and added a dark‑theme toggle.  
-  - Fixed compilation race condition that caused occasional timeouts.  
+Open `client/index.html` in a browser, or serve it statically:
 
-- **v1.2 – 2026‑07‑15**  
-  - Integrated real‑time terminal output with auto‑scroll.  
-  - Added line‑number gutter and bracket‑matching highlight.  
+```bash
+npx serve client
+```
 
-- **v1.0 – 2026‑05‑01**  
-  - Initial public release with basic editor and compile/run functionality.  
+---
 
-## Maintained by  
+## Usage
 
-[shubhyagami](https://github.com/shubhyagami)
+1. Type or paste Java source into the editor.
+2. Press **Ctrl + Enter** or click **Run**.
+3. The terminal panel displays compilation errors or program output in real time.
+
+The editor keeps your open files across browser restarts by storing them in `localStorage`.
+
+---
+
+## Configuration
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `SERVER_PORT` | `3000` | Port for the node backend. |
+| `MAX_OUTPUT_LINES` | `2000` | Maximum lines stored in terminal history. |
+| `JAVA_HOME` | env var | Optional; overrides the default JDK path. |
+
+Set environment variables before starting the server, e.g.:
+
+```bash
+export SERVER_PORT=4000
+npm start
+```
+
+---
+
+## Contributing
+
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/your-feature`.
+3. Commit your changes with a clear message.
+4. Push and open a Pull Request.
+
+Please run the test suite before submitting:
+
+```bash
+cd server
+npm test
+```
+
+---
+
+## License
+
+MIT – see the [LICENSE](LICENSE) file.
+
+---
+
+## Changelog
+
+### v1.3 – 2026‑08‑28
+
+- Persistent tabs and drag‑and‑drop file import.
+- Dark‑theme toggle and mobile layout improvements.
+- Resolved race condition causing occasional timeouts.
+
+### v1.2 – 2026‑07‑15
+
+- Real‑time terminal output with auto‑scroll.
+- Added line numbers and bracket matching.
+
+### v1.0 – 2026‑05‑01
+
+- First public release: editor + compile/run.
+
+---
+
+## Maintainers
+
+- [shubhyagami](https://github.com/shubhyagami)
+
+---
+
+## Badges
+
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square)](https://github.com/shubhyagami/java-IDE/actions)
+[![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square)](https://coveralls.io/github/shubhyagami/java-IDE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![npm](https://img.shields.io/npm/v/java-ide?style=flat-square)](https://www.npmjs.com/package/java-ide)
