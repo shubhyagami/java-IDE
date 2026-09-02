@@ -1,98 +1,112 @@
-# Java IDE – Browser‑Based Development Environment
+[K[2m  [2mmodel openai/gpt-oss-20b failed, trying next...[0m[0m
+# Java IDE – Browser‑Based Development Environment  
 
-A lightweight web application that lets you write, compile, and run Java code directly in the browser without any additional installation.
+[![CI](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square)](https://github.com/shubhyagami/java-IDE/actions)  
+[![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square)](https://coveralls.io/github/shubhyagami/java-IDE)  
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)  
+[![npm version](https://img.shields.io/npm/v/java-ide?style=flat-square)](https://www.npmjs.com/package/java-ide)  
 
----
-
-## Table of Contents
-- [Features](#features)
-- [Architecture](#architecture)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Contributing](#contributing)
-- [License](#license)
-- [Changelog](#changelog)
-- [Maintainers](#maintainers)
+A lightweight web application that lets you write, compile, and run Java programs directly in the browser. No external services are required—the compilation happens locally on a Node.js backend.
 
 ---
 
-## Features
+## Features  
 
-- **Code editor** – CodeMirror 6 with syntax highlighting, line numbers, folding, bracket matching, and auto‑indent.
-- **Instant compile & run** – Submit code via `Ctrl+Enter` or the Run button; output appears in an embedded terminal that scrolls automatically.
-- **File management** – Create, edit, rename, delete, drag‑and‑drop files; multiple tabs stay open across sessions.
-- **Responsive UI** – Works on desktop and mobile, with light/dark theme that follows the system preference.
-- **Zero‑install backend** – The node server runs locally; no external hosting required.
-
----
-
-## Architecture
-
-```
-┌─────────────┐   HTTP   ┌───────────────────────┐
-│  Browser    │<────────>│  Node.js (Express)    │
-│  (client)  │   WebSocket   │  /api/compile         │
-└─────────────┘           └───────────────────────┘
-```
-
-* `client/` – Static files (HTML, CSS, JS) served by the node server.
-* `server/` – Express application that spawns `javac` and `java` processes, streams output back to the client via WebSockets.
-* All compilation happens locally; no third‑party services.
+- **Rich code editor** – CodeMirror 6 with syntax highlighting, line numbers, code folding, bracket matching and auto‑indent.  
+- **Instant compile & run** – Press **Ctrl + Enter** or click **Run**; output is streamed to an embedded terminal in real time.  
+- **File management** – Create, rename, delete, and drag‑and‑drop files; open tabs persist across sessions via `localStorage`.  
+- **Responsive UI** – Works on desktop and mobile; light/dark theme follows the system setting.  
+- **Zero‑install backend** – The Node.js server runs locally and invokes the JDK directly; no third‑party APIs are used.
 
 ---
 
-## Getting Started
+## Architecture  
 
-### Prerequisites
+    ┌─────────────┐   HTTP   ┌───────────────────────┐
+    │  Browser    │<────────>│  Node.js (Express)    │
+    │ (client)   │   WS     │  /api/compile          │
+    └─────────────┘          └───────────────────────┘  
 
-- Node.js **v18+**
-- JDK 17+ in your `PATH`
+- **client/** – Static assets (HTML, CSS, JS) served by the Express server.  
+- **server/** – Express app that spawns `javac` and `java`, streams compilation and runtime output back to the client via WebSockets.  
 
-### Installation
+All compilation is performed on the host machine; no code leaves your computer.
+
+---
+
+## Quick Start  
 
 ```bash
+# Clone and enter the project
 git clone https://github.com/shubhyagami/java-IDE.git
 cd java-IDE
-```
 
-#### Backend
-
-```bash
+# Install backend dependencies
 cd server
-npm install
-npm start     # starts at http://localhost:3000
+npm ci
+npm start      # → http://localhost:3000
 ```
 
-#### Frontend
-
-Open `client/index.html` in a browser, or serve it statically:
+Open `client/index.html` in a browser, or serve the folder with a static server:
 
 ```bash
 npx serve client
 ```
 
----
-
-## Usage
-
-1. Type or paste Java source into the editor.
-2. Press **Ctrl + Enter** or click **Run**.
-3. The terminal panel displays compilation errors or program output in real time.
-
-The editor keeps your open files across browser restarts by storing them in `localStorage`.
+The editor is ready – write Java code, press **Ctrl + Enter**, and watch the output.
 
 ---
 
-## Configuration
+## Prerequisites  
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `SERVER_PORT` | `3000` | Port for the node backend. |
-| `MAX_OUTPUT_LINES` | `2000` | Maximum lines stored in terminal history. |
-| `JAVA_HOME` | env var | Optional; overrides the default JDK path. |
+- **Node.js** v18 or newer  
+- **JDK** 17 or newer, accessible via the `PATH` (or set `JAVA_HOME`)  
 
-Set environment variables before starting the server, e.g.:
+---
+
+## Installation & Running  
+
+### Backend  
+
+```bash
+cd server
+npm ci
+npm start   # defaults to port 3000; override with SERVER_PORT env var
+```
+
+### Frontend  
+
+You can open the HTML file directly:
+
+```bash
+open client/index.html
+```
+
+or serve it with any static‑file server (e.g., `npx serve client`).  
+
+The client automatically connects to the backend on the same host and port.
+
+---
+
+## Usage  
+
+1. Write or paste Java source code in the editor.  
+2. Press **Ctrl + Enter** or click the **Run** button.  
+3. The terminal panel below shows compilation errors or program output as they are produced.  
+
+All opened files and tab layout are saved in `localStorage`, so they survive browser reloads and restarts.
+
+---
+
+## Configuration  
+
+| Variable            | Default | Description |
+|---------------------|---------|-------------|
+| `SERVER_PORT`       | `3000`  | Port on which the Node.js server listens. |
+| `MAX_OUTPUT_LINES`  | `2000`  | Maximum number of lines kept in the terminal history. |
+| `JAVA_HOME`         | *env*   | If set, overrides the JDK path used for compilation. |
+
+Set variables before starting the server, for example:
 
 ```bash
 export SERVER_PORT=4000
@@ -101,56 +115,51 @@ npm start
 
 ---
 
-## Contributing
-
-1. Fork the repository.
-2. Create a feature branch: `git checkout -b feature/your-feature`.
-3. Commit your changes with a clear message.
-4. Push and open a Pull Request.
-
-Please run the test suite before submitting:
+## Testing  
 
 ```bash
 cd server
 npm test
 ```
 
----
-
-## License
-
-MIT – see the [LICENSE](LICENSE) file.
+The test suite covers the compilation API, WebSocket handling, and basic error scenarios.
 
 ---
 
-## Changelog
+## Contributing  
 
-### v1.3 – 2026‑08‑28
+1. Fork the repository.  
+2. Create a feature branch: `git checkout -b feature/your-feature`.  
+3. Make your changes and write clear commit messages.  
+4. Run the test suite (`npm test`).  
+5. Push the branch and open a Pull Request.  
 
-- Persistent tabs and drag‑and‑drop file import.
-- Dark‑theme toggle and mobile layout improvements.
-- Resolved race condition causing occasional timeouts.
-
-### v1.2 – 2026‑07‑15
-
-- Real‑time terminal output with auto‑scroll.
-- Added line numbers and bracket matching.
-
-### v1.0 – 2026‑05‑01
-
-- First public release: editor + compile/run.
+Please keep the code style consistent with the existing project and update documentation when appropriate.
 
 ---
 
-## Maintainers
+## License  
 
-- [shubhyagami](https://github.com/shubhyagami)
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Badges
+## Changelog  
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square)](https://github.com/shubhyagami/java-IDE/actions)
-[![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square)](https://coveralls.io/github/shubhyagami/java-IDE)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![npm](https://img.shields.io/npm/v/java-ide?style=flat-square)](https://www.npmjs.com/package/java-ide)
+**v1.3 – 2026‑08‑28**  
+- Persistent tabs and drag‑and‑drop file import.  
+- Dark‑theme toggle and improved mobile layout.  
+- Fixed a race condition that caused occasional timeouts.  
+
+**v1.2 – 2026‑07‑15**  
+- Real‑time terminal output with auto‑scroll.  
+- Added line numbers and bracket matching.  
+
+**v1.0 – 2026‑05‑01**  
+- Initial public release: editor, compile, and run functionality.
+
+---
+
+## Maintainers  
+
+- **[shubhyagami](https://github.com/shubhyagami)** – project creator & primary maintainer.  
