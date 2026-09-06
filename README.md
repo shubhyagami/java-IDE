@@ -1,12 +1,12 @@
-# Java IDE
+# Java IDE
 
-A lightweight, browser‑based IDE for writing, compiling, and running Java code on your own machine.  
-All compilation is handled by a Node.js backend that calls the system JDK, so your source never leaves your computer.
+A lightweight, browser‑based IDE that compiles and runs Java code locally.  
+All requests are processed by a Node.js backend that invokes the system JDK, so your source code never leaves your machine.
 
-[![CI](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square)](https://github.com/shubhyagami/java-IDE/actions)  
-[![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square)](https://coveralls.io/github/shubhyagami/java-IDE)  
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)  
-[![npm version](https://img.shields.io/npm/v/java-ide?style=flat-square)](https://www.npmjs.com/package/java-ide)
+![CI](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square)  
+![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square)  
+![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)  
+![npm version](https://img.shields.io/npm/v/java-ide?style=flat-square)
 
 ---
 
@@ -15,10 +15,8 @@ All compilation is handled by a Node.js backend that calls the system JDK, so yo
 - [Getting Started](#getting-started)
 - [Features](#features)
 - [Architecture](#architecture)
-- [Installation](#installation)
-  - [Prerequisites](#prerequisites)
-  - [Core Setup](#core-setup)
-  - [Running the Client](#running-the-client)
+- [Prerequisites](#prerequisites)
+- [Installation & Launch](#installation--launch)
 - [Configuration](#configuration)
 - [Testing](#testing)
 - [Contributing](#contributing)
@@ -35,28 +33,28 @@ git clone https://github.com/shubhyagami/java-IDE.git
 cd java-IDE
 ```
 
-The server and client can be started with a single command:
+Install dependencies and start the server:
 
 ```bash
 cd server
 npm ci
-npm start
+npm start   # by default, listens on http://localhost:3000
 ```
 
-Open the client in a browser by visiting `http://localhost:3000` or by opening `client/index.html` directly.  
+Open `client/index.html` in a browser (or simply visit `http://localhost:3000`).  
 The IDE will automatically connect to the backend running on the same host.
 
 ---
 
 ## Features
 
-| Feature | Description |
-|---------|--------------|
-| **Code editor** | CodeMirror 6 with syntax highlighting, line numbers, folding, auto‑indent, and bracket matching. |
-| **Instant compile & run** | `Ctrl + Enter` or the Run button compiles and executes the active file; output streams live in an embedded terminal. |
-| **File management** | Create, rename, delete, drag‑and‑drop files; tabs and layout persist in `localStorage`. |
-| **Responsive UI** | Works on desktop and mobile; automatically adapts to light/dark system themes. |
-| **Purely local** | All compilation and execution happens locally; no code is sent to any external service. |
+| Feature                 | What it does |
+|-------------------------|--------------|
+| **Code editor**         | CodeMirror 6 with syntax highlighting, line numbers, folding, auto‑indent, bracket matching. |
+| **Instant compile & run** | `Ctrl + Enter` or the Run button compiles the active file and streams output to an embedded terminal. |
+| **File management**     | Create, rename, delete, drag‑and‑drop files; tabs persist in `localStorage`. |
+| **Responsive UI**      | Works on desktop and mobile, auto‑adapts to system light/dark themes. |
+| **Purely local**        | Compilation and execution happen on your machine; no code is sent anywhere. |
 
 ---
 
@@ -66,47 +64,41 @@ The IDE will automatically connect to the backend running on the same host.
 Browser (client)  <HTTP/WebSocket>  Node.js (Express)  <exec>  JDK
 ```
 
-* **`client/`** – static assets served by Express.
-* **`server/`** – Express application that spawns `javac` and `java`, streaming stdout/stderr over WebSocket.
+* `client/` – Static assets served by Express.
+* `server/` – Express app that spawns `javac` and `java`, streams stdout/stderr over WebSocket.
 
 ---
 
-## Installation
-
-### Prerequisites
+## Prerequisites
 
 | Component | Minimum version |
-|-----------|-----------------|
-| Node.js   | 18.x or newer   |
-| JDK       | 17 or newer     |
+|-----------|----------------|
+| Node.js   | 18.x or newer |
+| JDK       | 17 or newer    |
 
-The JDK must be in `PATH`; alternatively set `JAVA_HOME` to its root directory.
+Make sure `java` and `javac` are in your `PATH`.  
+Alternatively, set `JAVA_HOME` to the JDK root directory.
 
-### Core Setup
+---
+
+## Installation & Launch
 
 ```bash
-# from the root
+# From the repository root
 cd server
-npm ci          # Installs dependencies
-npm start       # Starts the server on port 3000 (use SERVER_PORT to change)
+npm ci          # Install dependencies
+npm start       # Starts the server (default port 3000)
 ```
 
-### Running the Client
+### Launch the IDE
 
-The client can be served directly:
-
-```bash
-# from the root
-open client/index.html
-```
-
-or via a static file server:
+Open `client/index.html` in a browser or serve it with any static file server:
 
 ```bash
 npx serve client
 ```
 
-The client connects automatically to the backend running on the same host.
+The client auto‑detects the backend on the same host.
 
 ---
 
@@ -114,11 +106,11 @@ The client connects automatically to the backend running on the same host.
 
 Environment variables accepted by the server:
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `SERVER_PORT` | `3000` | Port on which the server listens. |
+| Variable      | Default  | Description |
+|---------------|----------|------------|
+| `SERVER_PORT` | `3000`   | Port on which the server listens. |
 | `MAX_OUTPUT_LINES` | `2000` | Number of terminal lines kept in memory. |
-| `JAVA_HOME` | – | If set, overrides the JDK path used for compilation. |
+| `JAVA_HOME`   | –        | If set, overrides the JDK path used for compilation. |
 
 Example:
 
@@ -137,7 +129,7 @@ cd server
 npm test
 ```
 
-The test suite exercises the compilation API, WebSocket handling, and error paths.
+The test suite covers the compilation API, WebSocket handling, and error scenarios.
 
 ---
 
@@ -145,11 +137,11 @@ The test suite exercises the compilation API, WebSocket handling, and error path
 
 1. Fork the repository.  
 2. Create a feature branch: `git checkout -b feature/your-feature`.  
-3. Make your changes and keep the code style consistent with the existing project.  
+3. Keep the code style consistent with the existing codebase.  
 4. Run `npm test` to ensure all tests pass.  
 5. Push the branch and open a Pull Request.
 
-Feel free to open issues or ask questions if something is unclear.
+Feel free to open issues or ask questions if anything is unclear.
 
 ---
 
