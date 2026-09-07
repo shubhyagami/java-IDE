@@ -1,22 +1,20 @@
-# Java IDE
+# Java IDE
 
-A lightweight, browser‑based IDE that compiles and runs Java code locally.  
-All requests are handled by a Node.js backend that invokes the system JDK, so your source code never leaves your machine.
+A lightweight, browser‑based development environment that compiles and runs Java code locally.  
+All work is performed on the client and on the machine that runs the Node.js backend, so your source code never leaves your computer.
 
-[![CI](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square)](https://github.com/shubhyagami/java-IDE/actions)
-[![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square)](https://coveralls.io/github/shubhyagami/java-IDE)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
-[![npm version](https://img.shields.io/npm/v/java-ide?style=flat-square)](https://www.npmjs.com/package/java-ide)
+![CI](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square) ![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square) ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square) ![npm version](https://img.shields.io/npm/v/java-ide?style=flat-square)
 
 ---
 
-## Table of Contents
+## Table of contents
 
-- [Quick Start](#quick-start)
+- [Getting started](#getting-started)
 - [Features](#features)
 - [Architecture](#architecture)
 - [Prerequisites](#prerequisites)
-- [Installation & Launch](#installation--launch)
+- [Installation](#installation)
+- [Running the IDE](#running-the-ide)
 - [Configuration](#configuration)
 - [Testing](#testing)
 - [Contributing](#contributing)
@@ -26,40 +24,40 @@ All requests are handled by a Node.js backend that invokes the system JDK, so yo
 
 ---
 
-## Quick Start
+## Getting started
 
 ```bash
 git clone https://github.com/shubhyagami/java-IDE.git
 cd java-IDE
 ```
 
-Install dependencies and start the server:
+**Start the backend**
 
 ```bash
 cd server
-npm ci
-npm start   # defaults to http://localhost:3000
+npm ci          # install dependencies
+npm start        # the server listens on http://localhost:3000 by default
 ```
 
-Serve the client (or open `client/index.html` directly):
+**Serve the client**
 
 ```bash
 npx serve client
 ```
 
-Open `http://localhost:3000` in a browser. The IDE will automatically connect to the backend.
+Open `http://localhost:3000` in any browser and the IDE will automatically detect the running backend.
 
 ---
 
 ## Features
 
-| Feature                     | What it does |
-|------------------------------|--------------|
-| **Code editor**              | CodeMirror 6 with syntax highlighting, line numbers, folding, auto‑indent, and bracket matching. |
-| **Instant compile & run**   | `Ctrl + Enter` (or the Run button) compiles the active file and streams output to an embedded terminal. |
-| **File management**         | Create, rename, delete, drag‑and‑drop files; tabs persist via `localStorage`. |
-| **Responsive UI**           | Works on desktop and mobile; automatically adapts to system light/dark themes. |
-| **Purely local**            | Compilation and execution happen on your machine; no code is sent to any external server. |
+| Feature | Description |
+|---------|-------------|
+| **Code editor** | CodeMirror 6 with syntax highlighting, line numbers, folding, auto‑indentation, and bracket matching. |
+| **Instant compile & run** | `Ctrl+Enter` (or the Run button) compiles the active file and streams the output to an embedded terminal. |
+| **File management** | Create, rename, delete, and drag‑and‑drop files; opened tabs persist across sessions via `localStorage`. |
+| **Responsive UI** | Works on desktop and mobile; automatically switches to the system light/dark theme. |
+| **Purely local** | All compilation and execution happen on your machine; no code is sent to any external service. |
 
 ---
 
@@ -69,7 +67,7 @@ Open `http://localhost:3000` in a browser. The IDE will automatically connect to
 Browser (client) ────HTTP/WebSocket───► Express (Node.js) ────exec──► JDK
 ```
 
-* `client/` – Static assets served by Express.  
+* `client/` – Static assets (HTML, CSS, JS) served by Express.  
 * `server/` – Express app that spawns `javac` and `java`, streams stdout/stderr over WebSocket.
 
 ---
@@ -81,29 +79,40 @@ Browser (client) ────HTTP/WebSocket───► Express (Node.js) ──
 | Node.js   | 18.x or newer   |
 | JDK       | 17 or newer     |
 
-Ensure `java` and `javac` are in your `PATH`.  
-Alternatively set `JAVA_HOME` to the JDK root directory; this will be used by the server.
+`java` and `javac` must be in your `PATH`.  
+Alternatively set `JAVA_HOME` to the JDK root – the server will use that when compiling.
 
 ---
 
-## Installation & Launch
+## Installation
 
 ```bash
 # from the repository root
 cd server
-npm ci        # install dependencies
-npm start     # starts the server (default port 3000)
+npm ci          # install dependencies
+npm start       # defaults to http://localhost:3000
 ```
 
-### Launch the IDE
+The server is ready; you can now serve the client or open it directly.
 
-Serve the static client or open its index file:
+---
+
+## Running the IDE
+
+Serve the client assets:
 
 ```bash
 npx serve client
 ```
 
-The client detects the backend automatically.
+Open `http://localhost:3000` in a browser. The IDE will connect automatically to the backend.
+
+If you need a different port for the server:
+
+```bash
+export SERVER_PORT=4000
+npm start
+```
 
 ---
 
@@ -111,11 +120,11 @@ The client detects the backend automatically.
 
 Environment variables accepted by the server:
 
-| Variable          | Default  | Description |
-|-------------------|----------|-------------|
-| `SERVER_PORT`     | `3000`   | Port on which the server listens. |
-| `MAX_OUTPUT_LINES`| `2000`   | Terminal lines kept in memory. |
-| `JAVA_HOME`       | –        | If set, overrides the JDK path used for compilation. |
+| Variable          | Default | Description |
+|-------------------|---------|-------------|
+| `SERVER_PORT`     | 3000    | Port on which the server listens. |
+| `MAX_OUTPUT_LINES`| 2000   | Number of terminal lines kept in memory. |
+| `JAVA_HOME`       | –       | If set, overrides the JDK path used for compilation. |
 
 Example:
 
