@@ -1,16 +1,19 @@
-# Java IDE
+# java‑IDE
 
 A lightweight, browser‑based development environment that compiles and runs Java code locally.  
 All compilation and execution happens on the machine that hosts the Node.js backend, so your source code never leaves your computer.
 
-![CI](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square) ![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square) ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square) ![npm version](https://img.shields.io/npm/v/java-ide?style=flat-square)
+![CI](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square)  
+![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square)  
+![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)  
+![npm version](https://img.shields.io/npm/v/java-ide?style=flat-square)
 
 ---
 
 ## Table of contents
 
 - [Introduction](#introduction)
-- [Quick start](#quick-start)
+- [Getting started](#getting-started)
 - [Features](#features)
 - [Architecture](#architecture)
 - [Prerequisites](#prerequisites)
@@ -27,24 +30,24 @@ All compilation and execution happens on the machine that hosts the Node.js back
 
 ## Introduction
 
-Java IDE is a self‑contained, browser‑based editor that compiles Java files on your local machine.  
+java‑IDE is a self‑contained, browser‑based editor that compiles Java files on your local machine.  
 It consists of a Node.js Express server that runs `javac` and `java` and a static front‑end that communicates via WebSockets.
 
 ---
 
-## Quick start
+## Getting started
 
 ```bash
-# clone the repo
+# Clone the repository
 git clone https://github.com/shubhyagami/java-IDE.git
 cd java-IDE
 
-# start the backend
+# Start the backend
 cd server
 npm ci
-npm start   # listens on http://localhost:3000 by default
+npm start   # defaults to http://localhost:3000
 
-# serve the front‑end (from the repo root)
+# Serve the front‑end
 npx serve client
 ```
 
@@ -55,23 +58,23 @@ Open `http://localhost:3000` in any browser. The IDE will automatically connect 
 ## Features
 
 | Feature | Description |
-|---------|------------|
-| Code editor | CodeMirror 6 with syntax highlighting, line numbers, folding, auto‑indentation and bracket matching. |
-| Compile & run | `Ctrl+Enter` or the Run button compiles the active file and streams the output to an embedded terminal. |
-| File management | Create, rename, delete and drag‑and‑drop files. Opened tabs persist across sessions via `localStorage`. |
-| Responsive UI | Works on desktop and mobile; matches the system light/dark theme. |
-| Purely local | All compilation and execution happen locally; no code is sent to external services. |
+|---------|-------------|
+| Code editor | CodeMirror 6 with syntax highlighting, line numbers, folding, auto‑indentation, and bracket matching. |
+| Compile & run | `Ctrl+Enter` (or the Run button) compiles the active file and streams output to an embedded terminal. |
+| File management | Create, rename, delete, and drag‑and‑drop files. Tabs persist across sessions via `localStorage`. |
+| Responsive UI | Works on desktop and mobile; respects the system light/dark theme. |
+| Purely local | All code is compiled and executed locally; no data is sent to external services. |
 
 ---
 
 ## Architecture
 
 ```
-Browser (client) ────HTTP/WebSocket───► Express (Node.js) ────exec──► JDK
+Browser (client) ── HTTP/WebSocket ──► Express (Node.js) ── exec ──► JDK
 ```
 
-* `client/` – Static assets (HTML, CSS, JS) served by Express.  
-* `server/` – Express app that spawns `javac` and `java`, streams stdout/stderr over WebSocket.
+* **client/** – Static assets (HTML, CSS, JS) served by Express.  
+* **server/** – Express app that spawns `javac` and `java` and streams stdout/stderr over WebSocket.
 
 ---
 
@@ -83,31 +86,31 @@ Browser (client) ────HTTP/WebSocket───► Express (Node.js) ──
 | JDK       | 17 or newer     |
 
 `java` and `javac` must be available on the system `PATH`.  
-If you prefer to point to a specific JDK installation, set the `JAVA_HOME` environment variable; the server will use `JAVA_HOME/jre/bin/java` and `JAVA_HOME/bin/javac`.
+If you prefer a specific JDK installation, set the `JAVA_HOME` environment variable; the server will use `JAVA_HOME/jre/bin/java` and `JAVA_HOME/bin/javac`.
 
 ---
 
 ## Installation
 
 ```bash
-# from the repository root
+# From the repository root
 cd server
-npm ci        # install dependencies
-npm start     # starts the server on http://localhost:3000
+npm ci          # install dependencies
+npm start       # starts the server on http://localhost:3000
 ```
 
-The server is now ready.  Serve the front‑end or open the `client/` folder directly with any static server.
+The server is now ready. Serve the front‑end or open the `client/` folder directly with any static server.
 
 ---
 
 ## Running the IDE
 
 ```bash
-# serve the front‑end
+# Serve the front‑end
 npx serve client
 ```
 
-Open `http://localhost:3000` in a browser.  The IDE will connect automatically to the backend.
+Open `http://localhost:3000` in a browser. The IDE will connect automatically to the backend.
 
 If you need the server on a different port:
 
@@ -120,10 +123,10 @@ npm start
 
 ## Configuration
 
-The server accepts the following environment variables:
+Environment variables accepted by the server:
 
 | Variable          | Default | Description |
-|-------------------|---------|-----------|
+|-------------------|---------|-------------|
 | `SERVER_PORT`     | 3000    | Port on which the server listens. |
 | `MAX_OUTPUT_LINES`| 2000    | Number of terminal lines kept in memory. |
 | `JAVA_HOME`       | –       | If set, overrides the JDK path used for compilation. |
@@ -145,7 +148,7 @@ cd server
 npm test
 ```
 
-The test suite exercises the compilation API, WebSocket handling and error conditions.
+The test suite exercises the compilation API, WebSocket handling, and error conditions.
 
 ---
 
@@ -169,9 +172,9 @@ MIT – see the [LICENSE](LICENSE) file.
 
 ## Changelog
 
-- **v1.3 (2026‑08‑28)** – Persisted tabs, drag‑and‑drop file import, dark‑theme toggle, mobile layout improvements, race‑condition fix.  
-- **v1.2 (2026‑07‑15)** – Real‑time terminal output, auto‑scroll.  
-- **v1.0 (2026‑05‑01)** – Initial public release.
+- **v1.3 (2026‑08‑28)** – Persisted tabs, drag‑and‑drop file import, dark‑theme toggle, mobile layout improvements, race‑condition fix.  
+- **v1.2 (2026‑07‑15)** – Real‑time terminal output, auto‑scroll.  
+- **v1.0 (2026‑05‑01)** – Initial public release.
 
 ---
 
