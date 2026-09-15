@@ -1,7 +1,7 @@
-# java‑IDE
+# java-IDE
 
-A lightweight, browser‑based development environment that compiles and runs Java code locally.  
-All compilation and execution happens on the machine that hosts the Node.js backend, so your source code never leaves your computer.
+A lightweight, browser‑based IDE that compiles and runs Java code locally.  
+All compilation and execution are performed on the machine that hosts the Node.js backend, so your source code never leaves your computer.
 
 ![CI](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square)  
 ![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square)  
@@ -12,13 +12,11 @@ All compilation and execution happens on the machine that hosts the Node.js back
 
 ## Table of contents
 
-- [Introduction](#introduction)
-- [Getting started](#getting-started)
+- [Quick start](#quick-start)
 - [Features](#features)
 - [Architecture](#architecture)
 - [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Running the IDE](#running-the-ide)
+- [Installation & running](#installation--running)
 - [Configuration](#configuration)
 - [Testing](#testing)
 - [Contributing](#contributing)
@@ -28,30 +26,27 @@ All compilation and execution happens on the machine that hosts the Node.js back
 
 ---
 
-## Introduction
-
-java‑IDE is a self‑contained, browser‑based editor that compiles Java files on your local machine.  
-It consists of a Node.js Express server that runs `javac` and `java` and a static front‑end that communicates via WebSockets.
-
----
-
-## Getting started
+## Quick start
 
 ```bash
 # Clone the repository
 git clone https://github.com/shubhyagami/java-IDE.git
 cd java-IDE
 
-# Start the backend
+# Install and start the backend
 cd server
 npm ci
-npm start   # defaults to http://localhost:3000
+npm start   # runs on http://localhost:3000
 
-# Serve the front‑end
-npx serve client
+# Open the IDE
+open http://localhost:3000   # or navigate manually in your browser
 ```
 
-Open `http://localhost:3000` in any browser. The IDE will automatically connect to the running backend.
+The frontend is served automatically by Express. If you prefer to preview the static files without running the backend, you can also run:
+
+```bash
+npx serve client  # serves the `client/` folder on http://localhost:5000
+```
 
 ---
 
@@ -59,22 +54,22 @@ Open `http://localhost:3000` in any browser. The IDE will automatically connect 
 
 | Feature | Description |
 |---------|-------------|
-| Code editor | CodeMirror 6 with syntax highlighting, line numbers, folding, auto‑indentation, and bracket matching. |
-| Compile & run | `Ctrl+Enter` (or the Run button) compiles the active file and streams output to an embedded terminal. |
-| File management | Create, rename, delete, and drag‑and‑drop files. Tabs persist across sessions via `localStorage`. |
-| Responsive UI | Works on desktop and mobile; respects the system light/dark theme. |
-| Purely local | All code is compiled and executed locally; no data is sent to external services. |
+| **Code editor** | CodeMirror 6 with syntax highlighting, line numbers, code folding, auto‑indentation, and bracket matching. |
+| **Compile & run** | `Ctrl+Enter` (or the Run button) compiles the active file and streams output to the embedded terminal. |
+| **File management** | Create, rename, delete, drag‑and‑drop files. Tab state is persisted via `localStorage`. |
+| **Responsive UI** | Works on desktop and mobile; respects the system light/dark theme. |
+| **Purely local** | All code is compiled and executed locally; no data leaves your machine. |
 
 ---
 
 ## Architecture
 
-```
+```text
 Browser (client) ── HTTP/WebSocket ──► Express (Node.js) ── exec ──► JDK
 ```
 
-* **client/** – Static assets (HTML, CSS, JS) served by Express.  
-* **server/** – Express app that spawns `javac` and `java` and streams stdout/stderr over WebSocket.
+* `client/` – Static assets (HTML, CSS, JS) served by Express.
+* `server/` – Express app that spawns `javac` and `java` and streams stdout/stderr over WebSocket.
 
 ---
 
@@ -86,11 +81,11 @@ Browser (client) ── HTTP/WebSocket ──► Express (Node.js) ── exec �
 | JDK       | 17 or newer     |
 
 `java` and `javac` must be available on the system `PATH`.  
-If you prefer a specific JDK installation, set the `JAVA_HOME` environment variable; the server will use `JAVA_HOME/jre/bin/java` and `JAVA_HOME/bin/javac`.
+If you want the server to use a specific JDK installation, set the `JAVA_HOME` environment variable; the server will then use `JAVA_HOME/jre/bin/java` and `JAVA_HOME/bin/javac`.
 
 ---
 
-## Installation
+## Installation & running
 
 ```bash
 # From the repository root
@@ -99,18 +94,8 @@ npm ci          # install dependencies
 npm start       # starts the server on http://localhost:3000
 ```
 
-The server is now ready. Serve the front‑end or open the `client/` folder directly with any static server.
-
----
-
-## Running the IDE
-
-```bash
-# Serve the front‑end
-npx serve client
-```
-
-Open `http://localhost:3000` in a browser. The IDE will connect automatically to the backend.
+The server automatically serves the static frontend.  
+Open `http://localhost:3000` in any browser; the IDE will connect to the running backend.
 
 If you need the server on a different port:
 
@@ -129,7 +114,7 @@ Environment variables accepted by the server:
 |-------------------|---------|-------------|
 | `SERVER_PORT`     | 3000    | Port on which the server listens. |
 | `MAX_OUTPUT_LINES`| 2000    | Number of terminal lines kept in memory. |
-| `JAVA_HOME`       | –       | If set, overrides the JDK path used for compilation. |
+| `JAVA_HOME`       | –       | Path to a JDK installation; overrides the default `java`/`javac` on `PATH`. |
 
 Example:
 
@@ -148,7 +133,7 @@ cd server
 npm test
 ```
 
-The test suite exercises the compilation API, WebSocket handling, and error conditions.
+The test suite verifies the compilation API, WebSocket handling, and error conditions.
 
 ---
 
