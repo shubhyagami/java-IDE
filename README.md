@@ -1,15 +1,15 @@
 # java-IDE
 
-A lightweight, browser‑based IDE that compiles and runs Java code locally. All compilation and execution happen on the machine that hosts the Node.js backend, so your source code never leaves your computer.
+A lightweight, browser‑based IDE for Java that compiles and runs code entirely on the host machine. All compilation and execution happen locally, so your source files never leave your computer.
 
-![CI](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square)  
-![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square)  
-![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)  
+![CI](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square)
+![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 ![npm version](https://img.shields.io/npm/v/java-ide?style=flat-square)
 
 ---
 
-## Table of contents
+## 📚 Table of contents
 
 - [Getting started](#getting-started)
 - [Features](#features)
@@ -24,7 +24,7 @@ A lightweight, browser‑based IDE that compiles and runs Java code locally. All
 
 ---
 
-## Getting started
+## 🚀 Getting started
 
 ```bash
 # Clone the repository
@@ -34,26 +34,26 @@ cd java-IDE
 # Install and run the server
 cd server
 npm ci
-npm start   # default: http://localhost:3000
+npm start   # defaults to http://localhost:3000
 ```
 
-Open `http://localhost:3000` in a browser. The static front‑end is served automatically by Express.
+Open <http://localhost:3000> in a browser. The static front‑end is served automatically by Express.
 
-> *Tip:* If you only want to preview the static assets, run `npx serve client` (defaults to `http://localhost:5000`).
-
----
-
-## Features
-
-- **Code editor** – CodeMirror 6 with syntax highlighting, line numbers, folding, auto‑indentation, and bracket matching.
-- **Compile & run** – `Ctrl + Enter` (or `Cmd + Enter` on macOS) compiles the current file and streams **stdout** / **stderr** to an embedded terminal.
-- **File management** – Create, rename, delete, and drag‑and‑drop files. Tab state persists via `localStorage`.
-- **Responsive UI** – Fully functional on desktop and mobile and respects system light/dark theme.
-- **Purely local** – No data leaves your machine.
+> *Tip:* To preview only the static assets, run `npx serve client` (defaults to <http://localhost:5000>).
 
 ---
 
-## Architecture
+## ✨ Features
+
+- **Code editor** – CodeMirror 6 with syntax highlighting, line numbers, folding, auto‑indentation, and bracket matching.  
+- **Compile & run** – `Ctrl + Enter` (or `Cmd + Enter` on macOS) compiles the current file and streams stdout/stderr to an embedded terminal.  
+- **File management** – Create, rename, delete, and drag‑and‑drop files. Tab state is persisted in `localStorage`.  
+- **Responsive UI** – Works on desktop and mobile, respects system light/dark theme.  
+- **No data leakage** – All operations run locally; nothing is sent to a remote server.
+
+---
+
+## 🏗 Architecture
 
 ```
 Browser (client)
@@ -65,12 +65,12 @@ Browser (client)
 
 The repository contains two top‑level directories:
 
-- `client/` – Static assets (HTML, CSS, JS) served by Express.
+- `client/` – Static assets (HTML, CSS, JS) served by Express.  
 - `server/` – Express app that spawns `javac` and `java` and streams output over WebSocket.
 
 ---
 
-## Prerequisites
+## 🔧 Prerequisites
 
 | Component | Minimum version |
 |-----------|-----------------|
@@ -78,11 +78,11 @@ The repository contains two top‑level directories:
 | JDK       | 17 or newer |
 
 Both `java` and `javac` must be available on the system `PATH`.  
-To use a specific JDK set `JAVA_HOME` to its installation directory; the server will then use `JAVA_HOME/jre/bin/java` and `JAVA_HOME/bin/javac`.
+To use a specific JDK, set `JAVA_HOME` to its installation directory; the server will then use `JAVA_HOME/jre/bin/java` and `JAVA_HOME/bin/javac`.
 
 ---
 
-## Configuration
+## ⚙️ Configuration
 
 The server honours the following environment variables:
 
@@ -102,17 +102,17 @@ npm start
 
 ---
 
-## Usage
+## 📦 Usage
 
 1. Open the IDE in a browser and start typing Java code.  
 2. Press **Ctrl + Enter** (Windows/Linux) or **Cmd + Enter** (macOS) to compile and run the current file.  
-3. Observe the terminal panel for real‑time stdout and stderr.  
+3. View real‑time stdout and stderr in the terminal panel.  
 4. Use the file explorer sidebar to create, rename, delete, or drag‑and‑drop files.  
-5. Tab state is persisted in `localStorage` and restores automatically after a reload.
+5. The IDE remembers your open tabs in `localStorage` and restores them on reload.
 
 ---
 
-## Testing
+## 🧪 Testing
 
 ```bash
 cd server
@@ -123,7 +123,7 @@ The test suite covers the compilation API, WebSocket handling, and error conditi
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository.  
 2. Create a feature branch: `git checkout -b feature/your-feature`.  
@@ -135,14 +135,14 @@ Feel free to open issues for bugs, feature requests, or questions.
 
 ---
 
-## License
+## 📄 License
 
 MIT – see the [LICENSE](LICENSE) file.
 
 ---
 
-## Changelog
+## 📅 Changelog
 
-- **v1.3 (2026‑08‑28)** – Persisted tabs, drag‑and‑drop import, dark‑theme toggle, mobile layout improvements, race‑condition fix.  
+- **v1.3 (2026‑08‑28)** – Persisted tabs, drag‑and‑drop imports, dark‑theme toggle, mobile layout improvements, race‑condition fix.  
 - **v1.2 (2026‑07‑15)** – Real‑time terminal output, auto‑scroll.  
 - **v1.0 (2026‑05‑01)** – Initial public release.
