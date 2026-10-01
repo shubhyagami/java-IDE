@@ -8,7 +8,6 @@ A lightweight, browser-based IDE for Java that compiles and runs code entirely o
 ![CI](https://img.shields.io/github/actions/workflow/status/shubhyagami/java-IDE/nodejs.yml?label=CI&style=flat-square)
 ![Coverage](https://img.shields.io/coveralls/shubhyagami/java-IDE/main?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
-![npm version](https://img.shields.io/npm/v/java-ide?style=flat-square)
 
 ---
 
@@ -16,8 +15,8 @@ A lightweight, browser-based IDE for Java that compiles and runs code entirely o
 
 - [Overview](#overview)
 - [Features](#features)
-- [Getting started](#getting-started)
 - [Prerequisites](#prerequisites)
+- [Getting started](#getting-started)
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [Architecture](#architecture)
@@ -30,19 +29,30 @@ A lightweight, browser-based IDE for Java that compiles and runs code entirely o
 
 ## Overview
 
-`java-IDE` is a self-contained, single-page application for writing, compiling, and running Java code in the browser. A small Node.js/Express server acts as the backend and invokes the local `javac` and `java` executables. Standard output and error streams are forwarded to the browser over WebSocket, giving you a near-real-time terminal view.
+`java-IDE` is a self-contained single-page application for writing, compiling, and running Java in the browser. A small Node.js/Express server acts as the backend and shells out to the local `javac` and `java` executables. Standard output and error streams are forwarded to the browser over a WebSocket, giving you a near-real-time terminal view.
 
-Because everything runs on your machine, no source code is uploaded anywhere.
+Because everything runs on your own machine, no source code is uploaded anywhere.
 
 ---
 
 ## Features
 
 - **Code editor** — CodeMirror 6 with syntax highlighting, line numbers, code folding, auto-indentation, and bracket matching.
-- **Compile & run** — `Ctrl + Enter` (Windows/Linux) or `Cmd + Enter` (macOS) compiles the current file and streams the output to an embedded terminal.
+- **Compile & run** — `Ctrl + Enter` (Windows/Linux) or `Cmd + Enter` (macOS) compiles the current file and streams output to the embedded terminal.
 - **File management** — Create, rename, delete, and drag-and-drop files. The file tree is stored in `localStorage`, so your workspace is restored on reload.
 - **Responsive UI** — Works on desktop and mobile, and respects the system light/dark theme.
 - **Local-only** — Nothing is sent to a remote server; all code stays on your machine.
+
+---
+
+## Prerequisites
+
+| Component | Minimum version |
+|-----------|-----------------|
+| Node.js   | 18.x or newer   |
+| JDK       | 17 or newer     |
+
+`java` and `javac` must be available on your `PATH`. If `JAVA_HOME` is set, the server prefers `${JAVA_HOME}/bin/javac` and `${JAVA_HOME}/jre/bin/java` instead.
 
 ---
 
@@ -60,7 +70,7 @@ npm start   # defaults to http://localhost:3000
 
 Then open <http://localhost:3000> in your browser.
 
-If you only want to test the static frontend, run:
+If you only want to preview the static frontend, run:
 
 ```bash
 npx serve client   # defaults to http://localhost:5000
@@ -70,26 +80,15 @@ npx serve client   # defaults to http://localhost:5000
 
 ---
 
-## Prerequisites
-
-| Component | Minimum version |
-|-----------|-----------------|
-| Node.js   | 18.x or newer   |
-| JDK       | 17 or newer     |
-
-`java` and `javac` must be available on the `PATH`. If `JAVA_HOME` is set, the server uses `${JAVA_HOME}/bin/javac` and `${JAVA_HOME}/jre/bin/java` instead.
-
----
-
 ## Configuration
 
 Environment variables accepted by the server:
 
-| Variable           | Default | Description                                    |
-|--------------------|---------|------------------------------------------------|
-| `SERVER_PORT`      | `3000`  | Port the server listens on.                    |
-| `MAX_OUTPUT_LINES` | `2000`  | Number of terminal lines retained in memory.   |
-| `JAVA_HOME`        | –       | Path to a JDK installation, overrides `PATH`.  |
+| Variable           | Default | Description                                   |
+|--------------------|---------|-----------------------------------------------|
+| `SERVER_PORT`      | `3000`  | Port the server listens on.                   |
+| `MAX_OUTPUT_LINES` | `2000`  | Number of terminal lines retained in memory.  |
+| `JAVA_HOME`        | –       | Path to a JDK installation; overrides `PATH`. |
 
 Example:
 
@@ -133,7 +132,7 @@ cd server
 npm test
 ```
 
-The test suite covers the compilation API, WebSocket handling, and error paths. Lint with `npm run lint` before submitting changes.
+The test suite covers the compilation API, WebSocket handling, and error paths. Run `npm run lint` before submitting changes.
 
 ---
 
@@ -144,7 +143,7 @@ The test suite covers the compilation API, WebSocket handling, and error paths. 
 3. Follow the linting rules (`npm run lint`) and run the tests (`npm test`).
 4. Push your branch and open a Pull Request.
 
-Issues and questions are welcome — feel free to open one for a bug, a feature request, or general feedback.
+Issues and questions are welcome — feel free to open one for a bug report, a feature request, or general feedback.
 
 ---
 
